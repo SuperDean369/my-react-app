@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -25,6 +25,12 @@ function App() {
   };
   const [count, setCount] = useState(0)
   const [countTwo, setCountTwo] = useState(0)
+  const [time, setTime] = useState(new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   return (
     <>
@@ -43,6 +49,9 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <p style={{ marginTop: '0.25rem', marginBottom: '1rem' }}>
+        Current time: {time.toLocaleTimeString()}
+      </p>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)} style={{ marginBottom: '16px' }}>
           count is {count}
